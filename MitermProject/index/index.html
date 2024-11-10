@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人履歷</title>
+    <link rel="stylesheet" href="Project.css">
+</head>
+<body>
+
+    <!-- 導覽欄 -->
+    <nav>
+        <h1>我的履歷</h1>
+        <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- 標語區 -->
+    <header class="hero">
+        <div class="hero-text">
+            <h2>林晨 Roy Lin</h2>
+            <p>“人生是為了變溫柔而存在”</p>
+            <img src="image/截圖 2024-11-06 00.57.24.png" alt="Profile Picture" class="profile-pic">
+        </div>
+    </header>
+
+    <!-- 關於我 -->
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <p>我是一個好奇心強、樂於學習的人，並且熱愛各類運動。無論是面對新的技術還是新的挑戰，我總是充滿熱情並積極應對。      
+            <br>#一日基迷 終身基迷</p>
+        <img src="image/pngegg.png" alt="About Me">
+    </section>
+
+    <!-- 技能區塊 -->
+    <section id="skills" class="section skills-section">
+        <h2>Skills</h2>
+        <div class="skills">
+            <div class="skill" data-tooltip="熟練程度：中">HTML & CSS</div>
+            <div class="skill" data-tooltip="熟練程度：中">Java</div>
+            <div class="skill" data-tooltip="熟練程度：低">Japanese</div>
+            <div class="skill" data-tooltip="熟練程度：高">Python</div>
+        </div>
+    </section>
+
+    <!-- 經歷 -->
+    <section id="experience" class="section">
+        <h2>Experience</h2>
+        <div class="experience-item">
+            <img src="image/截圖 2024-11-05 23.46.33.png" alt="Project Image">
+            <h3>於高中時擔任日本文化研究社社長，積極舉辦各項活動</h3>
+            <p>包括協助學校辦理和姐妹校的線上交流活動，同時我也致力於社團中舉辦特殊活動，包括在園遊會上擺設社團攤位以及規劃「羅東高中第一屆紅白歌唱大賽」。</p>
+        </div>
+        <div class="experience-item">
+            <img src="image/截圖 2024-11-06 00.12.33.png" alt="Project Image">
+            <h3>擔任宜蘭縣兒童及少年諮詢代表，推動有利於兒少相關議題</h3>
+            <p>透過觀察和體驗了解哪些方面會對我們造成不便，並查詢法條與案例，與其他成員共同討論並製作簡報於兒權會上提出建議。</p>
+        </div>
+        <div class="experience-item">
+            <video controls src="video/631a9c66-ec16-4133-a373-664542d2e9f4 - Compressed with FlexClip.mp4" alt="Project Video"></video>
+            <h3>「川閱溪流 攜心相印」</h3>
+            <p>參加中原大學服務學習中心舉辦的公益活動，帶領小朋友進行溪流清掃活動，並讓他們了解溪流的重要性。</p>
+        </div>
+    </section>
+
+    <!-- 聯絡我 -->
+    <section id="contact" class="section contact-section">
+        <h2>Contact Me</h2>
+        <p>Email: <a href="mailto:roylin930905@gmail.com">roylin930905@gmail.com</a></p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=100026769734215" target="_blank">
+                <img src="image/vecteezy_facebook-png-icon_16716447.png" alt="Facebook"> Facebook
+            </a>
+            <a href="https://www.instagram.com/chenlin341/" target="_blank">
+                <img src="image/vecteezy_instagram-logo-png-instagram-icon-transparent_18930413.png" alt="Instagram"> Instagram
+            </a>
+        </div>
+    </section>
+    <!-- 音樂播放器 -->
+<section id="music-player" class="section">
+    <h2>Music Player</h2>
+    <div class="player">
+        <audio id="audio" src="audio/Christina Perri - A Thousand Years (Piano⧸Cello Cover) (1).mp3"></audio>
+        <button id="play-pause" class="play-btn">▶️</button>
+        <button id="restart" class="restart-btn">⏪</button>
+        <span id="current-time">0:00</span>
+        <input type="range" id="progress" value="0" min="0" max="100">
+        <span id="duration">0:00</span>
+    </div>
+    
+</section>
+
+<script>
+    // 選取元素
+const audio = document.getElementById('audio');
+const playPauseBtn = document.getElementById('play-pause');
+const restartBtn = document.getElementById('restart');
+const progress = document.getElementById('progress');
+const currentTimeDisplay = document.getElementById('current-time');
+const durationDisplay = document.getElementById('duration');
+
+// 播放和暫停音樂
+playPauseBtn.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = '⏸️';
+    } else {
+        audio.pause();
+        playPauseBtn.textContent = '▶️';
+    }
+});
+
+// 重播音樂
+restartBtn.addEventListener('click', () => {
+    audio.currentTime = 0;
+    audio.play();
+    playPauseBtn.textContent = '⏸️';
+});
+
+// 更新進度條和時間顯示
+audio.addEventListener('timeupdate', () => {
+    const currentTime = audio.currentTime;
+    const duration = audio.duration;
+    progress.value = (currentTime / duration) * 100;
+
+    // 更新當前時間和總時長顯示
+    currentTimeDisplay.textContent = formatTime(currentTime);
+    durationDisplay.textContent = formatTime(duration);
+});
+
+// 跳轉播放進度
+progress.addEventListener('input', () => {
+    const duration = audio.duration;
+    audio.currentTime = (progress.value / 100) * duration;
+});
+
+// 格式化時間為分鐘:秒
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+</script>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 版權所有 林晨</p>
+    </footer>
+
+</body>
+</html>
